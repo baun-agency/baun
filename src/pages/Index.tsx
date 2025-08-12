@@ -84,7 +84,7 @@ const Index = () => {
             </div>
             <div className="relative">
               <img
-                src="/lovable-uploads/6acb751b-7cb2-46bb-9e46-6ca85a4d983b.png"
+                src="/lovable-uploads/7f794d49-e1ff-4376-b523-33a627f6ead1.png"
                 alt="Monochrome profile with bold red accent — reference aesthetic"
                 className="mx-auto w-full max-w-[520px] select-none drop-shadow-xl"
                 draggable={false}
