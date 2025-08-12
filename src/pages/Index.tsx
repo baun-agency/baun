@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -39,20 +39,6 @@ const PortfolioCard = ({ src, title }: { src: string; title: string }) => (
 );
 
 const Index = () => {
-  const heroImgRef = useRef<HTMLImageElement | null>(null);
-
-  // Subtle scroll parallax for hero image
-  useEffect(() => {
-    const img = heroImgRef.current;
-    if (!img) return;
-    const onScroll = () => {
-      const y = window.scrollY;
-      img.style.transform = `translateY(${Math.min(y * 0.08, 24)}px)`;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="min-h-screen font-sans">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
@@ -67,35 +53,15 @@ const Index = () => {
 
       <main>
         {/* Hero */}
-        <section
-          id="hero"
-          className="relative isolate overflow-hidden bg-[radial-gradient(800px_400px_at_20%_0%,hsl(var(--primary)/0.12),transparent_60%)]"
-        >
-          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-24 pt-40 md:grid-cols-2">
-            <div className="animate-enter space-y-6">
-              <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">
-                Top Concepts. Elevated Results.
-              </h1>
-              <p className="max-w-prose text-lg text-muted-foreground">
-                We create visuals and strategies that place your brand where it
-                belongs — <span className="text-primary font-semibold">Ahead.</span>
-              </p>
-              <div className="pt-2">
-                <Button variant="cta" size="lg" aria-label="Summon Me">
-                  Summon Me!
-                </Button>
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                ref={heroImgRef}
-                src="/lovable-uploads/d0d42d4a-c72a-4474-ab17-bce4c4676c54.png"
-                alt="Monochrome profile with bold red accent — reference aesthetic"
-                className="mx-auto w-full max-w-[520px] select-none drop-shadow-xl"
-                draggable={false}
-              />
-            </div>
-          </div>
+        <section id="hero" className="relative isolate overflow-hidden bg-background">
+          <img
+            src="/lovable-uploads/54e529dd-2615-461c-a962-9c8e88a3224a.png"
+            alt="Baun hero — Top Concepts Elevated Results, monochrome with Kikuyu red accents"
+            className="block h-auto w-full select-none"
+            draggable={false}
+            fetchPriority="high"
+            decoding="async"
+          />
         </section>
 
         {/* Origin */}
