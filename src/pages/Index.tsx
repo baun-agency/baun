@@ -47,13 +47,13 @@ const Index = () => {
             <img
               src="/lovable-uploads/d8e4b495-ac53-45e0-8906-0fcf2ea8225a.png"
               alt="Baun logo"
-              className="h-8 w-8 select-none"
+              className="h-12 w-12 select-none"
               draggable={false}
             />
           </a>
           <div className="flex items-center gap-8">
             {navItems.map((n) => (
-              <a key={n.id} href={`#${n.id}`} className="story-link text-sm font-semibold">
+              <a key={n.id} href={`#${n.id}`} className="hover-scale text-sm font-semibold">
                 {n.label}
               </a>
             ))}
@@ -84,7 +84,7 @@ const Index = () => {
             </div>
             <div className="relative">
               <img
-                src="/lovable-uploads/d0d42d4a-c72a-4474-ab17-bce4c4676c54.png"
+                src="/lovable-uploads/6acb751b-7cb2-46bb-9e46-6ca85a4d983b.png"
                 alt="Monochrome profile with bold red accent — reference aesthetic"
                 className="mx-auto w-full max-w-[520px] select-none drop-shadow-xl"
                 draggable={false}
