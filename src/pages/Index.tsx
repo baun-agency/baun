@@ -42,26 +42,56 @@ const Index = () => {
   return (
     <div className="min-h-screen font-sans">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
-        <nav className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-end gap-8 px-6 py-6">
-          {navItems.map((n) => (
-            <a key={n.id} href={`#${n.id}`} className="story-link text-sm font-semibold">
-              {n.label}
-            </a>
-          ))}
+        <nav className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+          <a href="/" className="flex items-center gap-3" aria-label="Baun home">
+            <img
+              src="/lovable-uploads/d8e4b495-ac53-45e0-8906-0fcf2ea8225a.png"
+              alt="Baun logo"
+              className="h-8 w-8 select-none"
+              draggable={false}
+            />
+          </a>
+          <div className="flex items-center gap-8">
+            {navItems.map((n) => (
+              <a key={n.id} href={`#${n.id}`} className="story-link text-sm font-semibold">
+                {n.label}
+              </a>
+            ))}
+          </div>
         </nav>
       </header>
 
       <main>
         {/* Hero */}
-        <section id="hero" className="relative isolate overflow-hidden bg-background">
-          <img
-            src="/lovable-uploads/54e529dd-2615-461c-a962-9c8e88a3224a.png"
-            alt="Baun hero — Top Concepts Elevated Results, monochrome with Kikuyu red accents"
-            className="block h-auto w-full select-none"
-            draggable={false}
-            fetchPriority="high"
-            decoding="async"
-          />
+        <section
+          id="hero"
+          className="relative isolate overflow-hidden bg-[radial-gradient(900px_450px_at_20%_0%,hsl(var(--foreground)/0.12),transparent_60%)]"
+        >
+          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-24 pt-40 md:grid-cols-2">
+            <div className="space-y-6">
+              <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">
+                Top Concepts. Elevated Results.
+              </h1>
+              <p className="max-w-prose text-lg text-muted-foreground">
+                We create visuals and strategies that place your brand where it
+                belongs — <span className="text-primary font-semibold">Ahead.</span>
+              </p>
+              <div className="pt-2">
+                <Button variant="cta" size="lg" aria-label="Summon Me">
+                  Summon Me!
+                </Button>
+              </div>
+            </div>
+            <div className="relative">
+              <img
+                src="/lovable-uploads/d0d42d4a-c72a-4474-ab17-bce4c4676c54.png"
+                alt="Monochrome profile with bold red accent — reference aesthetic"
+                className="mx-auto w-full max-w-[520px] select-none drop-shadow-xl"
+                draggable={false}
+                decoding="async"
+              />
+            </div>
+          </div>
         </section>
 
         {/* Origin */}
