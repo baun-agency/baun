@@ -1,4 +1,5 @@
 
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -7,13 +8,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Target, PenTool, Megaphone, MonitorSmartphone } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Target, PenTool, Megaphone, MonitorSmartphone, Menu } from "lucide-react";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
 import p4 from "@/assets/portfolio-4.jpg";
 import p5 from "@/assets/portfolio-5.jpg";
 import p6 from "@/assets/portfolio-6.jpg";
+import FloatingDoodles from "@/components/FloatingDoodles";
 
 const navItems = [
   { id: "origin", label: "Origin" },
@@ -39,8 +42,28 @@ const PortfolioCard = ({ src, title }: { src: string; title: string }) => (
 );
 
 const Index = () => {
+  const headlines = [
+    "Design That Speaks Before You Do",
+    "Turning Ideas Into Visual Stories",
+    "Where Creativity Meets Strategy",
+    "Your Brand, Bold and Unforgettable",
+  ];
+  const [headlineIndex, setHeadlineIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setHeadlineIndex((i) => (i + 1) % headlines.length);
+    }, 7000);
+    return () => clearInterval(id);
+  }, []);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const id = setInterval(() => {
+      nextRef.current?.click();
+    }, 7000);
+    return () => clearInterval(id);
+  }, []);
   return (
-    <div className="min-h-screen font-sans">
+    <div className="relative min-h-screen font-sans">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
         <nav className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
           <a href="/" className="flex items-center gap-3" aria-label="Baun home">
@@ -51,15 +74,31 @@ const Index = () => {
               draggable={false}
             />
           </a>
-          <div className="flex items-center gap-8">
+          <div className="hidden items-center gap-8 md:flex">
             {navItems.map((n) => (
-              <a key={n.id} href={`#${n.id}`} className="hover-scale text-sm font-semibold">
+              <a key={n.id} href={`#${n.id}`} className="text-sm font-semibold transition-all md:hover:scale-110 md:hover:text-primary">
                 {n.label}
               </a>
             ))}
           </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="flex flex-col gap-4">
+              {navItems.map((n) => (
+                <a key={n.id} href={`#${n.id}`} className="text-base font-semibold">
+                  {n.label}
+                </a>
+              ))}
+            </SheetContent>
+          </Sheet>
         </nav>
       </header>
+
+      <FloatingDoodles />
 
       <main>
         {/* Hero */}
@@ -69,12 +108,11 @@ const Index = () => {
         >
           <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-24 pt-40 md:grid-cols-2">
             <div className="space-y-6">
-              <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">
-                Top Concepts. Elevated Results.
+              <h1 key={headlineIndex} className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl animate-fade-in">
+                {headlines[headlineIndex]}
               </h1>
               <p className="max-w-prose text-lg text-muted-foreground">
-                We create visuals and strategies that place your brand where it
-                belongs — <span className="text-primary font-semibold">Ahead.</span>
+                From Concept to Impact, Seamlessly
               </p>
               <div className="pt-2">
                 <Button variant="cta" size="lg" aria-label="Summon Me">
@@ -182,7 +220,7 @@ const Index = () => {
                 ))}
               </CarouselContent>
               <CarouselPrevious className="-left-4" />
-              <CarouselNext className="-right-4" />
+              <CarouselNext ref={nextRef} className="-right-4" />
             </Carousel>
           </div>
         </section>

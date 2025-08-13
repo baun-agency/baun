@@ -125,3 +125,24 @@
 
   .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
 }
+
+/* Floating doodles animations */
+@keyframes float-slow {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-15px) translateX(10px) rotate(2deg); }
+  100% { transform: translateY(0) translateX(0) rotate(-2deg); }
+}
+@keyframes float-slow-2 {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(12px) translateX(-10px) rotate(-2deg); }
+  100% { transform: translateY(0) translateX(0) rotate(2deg); }
+}
+@layer utilities {
+  .doodle { color: hsl(var(--foreground)); opacity: 0.08; }
+  .animate-float-slow { animation: float-slow 60s ease-in-out infinite alternate; }
+  .animate-float-slower { animation: float-slow-2 80s ease-in-out infinite alternate; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow, .animate-float-slower { animation: none; }
+}
+
