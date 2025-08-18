@@ -9,7 +9,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Target, PenTool, Megaphone, MonitorSmartphone, Menu } from "lucide-react";
+import { Target, PenTool, Megaphone, MonitorSmartphone, Menu, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
@@ -152,21 +153,31 @@ const Index = () => {
         <section id="craft" className="bg-secondary">
           <div className="mx-auto max-w-6xl px-6 py-24">
             <h2 className="mb-12 text-3xl font-extrabold md:text-4xl">Craft</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
               {[
                 { icon: Target, title: "Brand Strategy" },
                 { icon: PenTool, title: "Visual Identity" },
                 { icon: Megaphone, title: "Campaign Design" },
                 { icon: MonitorSmartphone, title: "Digital Experiences" },
-              ].map(({ icon: Icon, title }) => (
-                <article
-                  key={title}
-                  className="group rounded-xl border bg-card p-6 shadow-sm transition-transform hover:translate-y-[-2px] hover:shadow-md"
-                >
-                  <Icon className="mb-4 h-6 w-6 text-foreground" />
-                  <h3 className="text-lg font-semibold">{title}</h3>
-                </article>
-              ))}
+                { icon: Users, title: "Social Media Management", link: "/social-media-packages" },
+              ].map(({ icon: Icon, title, link }) => 
+                link ? (
+                  <Link key={title} to={link}>
+                    <article className="group rounded-xl border bg-card p-6 shadow-sm transition-transform hover:translate-y-[-2px] hover:shadow-md cursor-pointer">
+                      <Icon className="mb-4 h-6 w-6 text-foreground" />
+                      <h3 className="text-lg font-semibold">{title}</h3>
+                    </article>
+                  </Link>
+                ) : (
+                  <article
+                    key={title}
+                    className="group rounded-xl border bg-card p-6 shadow-sm transition-transform hover:translate-y-[-2px] hover:shadow-md"
+                  >
+                    <Icon className="mb-4 h-6 w-6 text-foreground" />
+                    <h3 className="text-lg font-semibold">{title}</h3>
+                  </article>
+                )
+              )}
             </div>
             <div className="mt-10">
               <Button variant="cta" size="sm">Let’s Build.</Button>
