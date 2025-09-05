@@ -24,6 +24,7 @@ const navItems = [
   { id: "craft", label: "Craft" },
   { id: "treasure", label: "Treasure" },
   { id: "echoes", label: "Echoes" },
+  { id: "blog", label: "Blog", isRoute: true, href: "/blog" },
   { id: "call", label: "Call" },
 ];
 
@@ -50,6 +51,8 @@ const Index = () => {
     "Your Brand, Bold and Unforgettable",
   ];
   const [headlineIndex, setHeadlineIndex] = useState(0);
+  
+  const whatsappLink = "https://wa.me/254797960352?text=Hi! I'd like to work with Baun on my project.";
   useEffect(() => {
     const id = setInterval(() => {
       setHeadlineIndex((i) => (i + 1) % headlines.length);
@@ -77,9 +80,15 @@ const Index = () => {
           </a>
           <div className="hidden items-center gap-8 md:flex">
             {navItems.map((n) => (
-              <a key={n.id} href={`#${n.id}`} className="text-sm font-semibold transition-all md:hover:scale-110 md:hover:text-primary">
-                {n.label}
-              </a>
+              n.isRoute ? (
+                <Link key={n.id} to={n.href || '#'} className="text-sm font-semibold transition-all md:hover:scale-110 md:hover:text-primary">
+                  {n.label}
+                </Link>
+              ) : (
+                <a key={n.id} href={`#${n.id}`} className="text-sm font-semibold transition-all md:hover:scale-110 md:hover:text-primary">
+                  {n.label}
+                </a>
+              )
             ))}
           </div>
           <Sheet>
@@ -90,9 +99,15 @@ const Index = () => {
             </SheetTrigger>
             <SheetContent side="right" className="flex flex-col gap-4">
               {navItems.map((n) => (
-                <a key={n.id} href={`#${n.id}`} className="text-base font-semibold">
-                  {n.label}
-                </a>
+                n.isRoute ? (
+                  <Link key={n.id} to={n.href || '#'} className="text-base font-semibold">
+                    {n.label}
+                  </Link>
+                ) : (
+                  <a key={n.id} href={`#${n.id}`} className="text-base font-semibold">
+                    {n.label}
+                  </a>
+                )
               ))}
             </SheetContent>
           </Sheet>
@@ -116,9 +131,11 @@ const Index = () => {
                 From Concept to Impact, Seamlessly
               </p>
               <div className="pt-2">
-                <Button variant="cta" size="lg" aria-label="Summon Me">
-                  Summon Me!
-                </Button>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <Button variant="cta" size="lg" aria-label="Summon Me">
+                    Summon Me!
+                  </Button>
+                </a>
               </div>
             </div>
             <div className="relative">
@@ -242,9 +259,11 @@ const Index = () => {
             <h2 className="text-3xl font-extrabold md:text-4xl">
               Let’s Create Something Bold.
             </h2>
-            <Button variant="cta" size="lg" aria-label="Summon Me">
-              Summon Me!
-            </Button>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <Button variant="cta" size="lg" aria-label="Summon Me">
+                Summon Me!
+              </Button>
+            </a>
           </div>
         </section>
       </main>
