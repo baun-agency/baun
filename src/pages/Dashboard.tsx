@@ -14,6 +14,8 @@ import { useBlog, BlogPost } from '@/hooks/useBlog';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Eye, Calendar, LogOut, Home } from 'lucide-react';
 import { format } from 'date-fns';
+import { ContentEditor } from '@/components/ContentEditor';
+import { ImageUpload } from '@/components/ImageUpload';
 
 const Dashboard = () => {
   const { user, signOut, loading: authLoading } = useAuth();
@@ -143,6 +145,14 @@ const Dashboard = () => {
     }
   };
 
+  const generateSlug = (title: string): string => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, '-')
+      .trim();
+  };
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -236,17 +246,12 @@ const Dashboard = () => {
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content}
-                    onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                    placeholder="Write your blog post content (HTML supported)"
-                    rows={8}
-                    required
-                  />
-                </div>
+                <ContentEditor
+                  value={formData.content}
+                  onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+                  postSlug={formData.title ? generateSlug(formData.title) : 'untitled'}
+                  placeholder="Write your blog post content..."
+                />
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -291,14 +296,20 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="thumbnail">Thumbnail URL</Label>
-                  <Input
-                    id="thumbnail"
-                    type="url"
-                    value={formData.thumbnail_url}
-                    onChange={(e) => setFormData(prev => ({ ...prev, thumbnail_url: e.target.value }))}
-                    placeholder="https://example.com/image.jpg"
+                  <Label>Thumbnail</Label>
+                  <ImageUpload
+                    onImageUploaded={(url) => setFormData(prev => ({ ...prev, thumbnail_url: url }))}
+                    postSlug={formData.title ? generateSlug(formData.title) : 'untitled'}
                   />
+                  {formData.thumbnail_url && (
+                    <div className="mt-2">
+                      <img 
+                        src={formData.thumbnail_url} 
+                        alt="Thumbnail preview" 
+                        className="w-32 h-20 object-cover rounded border"
+                      />
+                    </div>
+                  )}
                 </div>
                 
                 {formData.status === 'scheduled' && (
